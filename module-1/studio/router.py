@@ -2,6 +2,13 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import MessagesState
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
+from langchain_google_vertexai import ChatVertexAI
+
+
+llm = ChatVertexAI(
+        model="gemini-1.5-pro", 
+        temperature=0.0
+    )
 
 # Tool
 def multiply(a: int, b: int) -> int:
@@ -14,7 +21,6 @@ def multiply(a: int, b: int) -> int:
     return a * b
 
 # LLM with bound tool
-llm = ChatOpenAI(model="gpt-4o")
 llm_with_tools = llm.bind_tools([multiply])
 
 # Node
